@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A5193752A7E9584005062A2 /* log.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A5193742A7E9584005062A2 /* log.txt */; };
 		0AF2B9E52A7DEB40008797ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2B9E42A7DEB40008797ED /* AppDelegate.swift */; };
 		0AF2B9E92A7DEB40008797ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2B9E82A7DEB40008797ED /* ViewController.swift */; };
 		0AF2B9EC2A7DEB40008797ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF2B9EA2A7DEB40008797ED /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A5193742A7E9584005062A2 /* log.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = log.txt; sourceTree = "<group>"; };
 		0AF2B9E12A7DEB40008797ED /* TerminalLogApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TerminalLogApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AF2B9E42A7DEB40008797ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AF2B9E82A7DEB40008797ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				0AF2BA162A7DED66008797ED /* ReadFileManager.swift */,
 				0AF2BA182A7DED6F008797ED /* Utilties.swift */,
 				0AF2B9EA2A7DEB40008797ED /* Main.storyboard */,
+				0A5193742A7E9584005062A2 /* log.txt */,
 				0AF2B9ED2A7DEB41008797ED /* Assets.xcassets */,
 				0AF2B9EF2A7DEB41008797ED /* LaunchScreen.storyboard */,
 				0AF2B9F22A7DEB41008797ED /* Info.plist */,
@@ -240,6 +243,7 @@
 				0AF2B9F12A7DEB41008797ED /* LaunchScreen.storyboard in Resources */,
 				0AF2B9EE2A7DEB41008797ED /* Assets.xcassets in Resources */,
 				0AF2B9EC2A7DEB40008797ED /* Main.storyboard in Resources */,
+				0A5193752A7E9584005062A2 /* log.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
