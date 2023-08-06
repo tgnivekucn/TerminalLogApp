@@ -11,7 +11,7 @@ class ReadFileManager {
     static let shared = ReadFileManager()
     private let customReadFileQueue = DispatchQueue(label: "WriteFileManager.customReadFileQueue")
     private var stopReadFile = false
-    private let readInterval = 1
+    private let readInterval: UInt32 = 1
     private let bufferSize = 8 // total bytes of reading text each time. Note: 如果一行的個數超過256 bytes，就會出錯
 
     func setStopReadFileFlag(val: Bool) {
@@ -19,17 +19,19 @@ class ReadFileManager {
     }
 
     func asyncReadFile(atPath path: String, readTextCallback: ((String) -> Void)? = nil, callback: ((Bool) -> Void)? = nil) {
+        guard let fileURL = URL(string: path) else {
+            callback?(false)
+            return
+        }
         customReadFileQueue.async {
             self.setStopReadFileFlag(val: false)
-            self.readFile2(atPath: path, bufferSize: self.bufferSize, readTextCallback: readTextCallback, callback: callback)
+            self.startReadFile(fileURL: fileURL, readInterval: self.readInterval, bufferSize: self.bufferSize, readTextCallback: readTextCallback, callback: callback)
             callback?(true)
         }
     }
 
-    private func readFile2(atPath path: String, bufferSize: Int, readTextCallback: ((String) -> Void)? = nil, callback: ((Bool) -> Void)? = nil) {
-        let readInterval = self.readInterval
+    private func startReadFile(fileURL: URL, readInterval: UInt32, bufferSize: Int, readTextCallback: ((String) -> Void)? = nil, callback: ((Bool) -> Void)? = nil) {
         do {
-            guard let fileURL = URL(string: path) else { return }
             let fileHandle = try FileHandle(forReadingFrom: fileURL)
             var data = Data()
             var totalReadCount = 0
@@ -37,7 +39,7 @@ class ReadFileManager {
                 let chunk = fileHandle.readData(ofLength: bufferSize)
                 data.append(chunk)
                 if !chunk.isEmpty {
-                    readText(data: data, fileHandle: fileHandle, totalReadCount: &totalReadCount, readTextCallback: readTextCallback)
+                    readTextByLine(data: data, fileHandle: fileHandle, totalReadCount: &totalReadCount, readTextCallback: readTextCallback)
                     let offset = UInt64(data.count)
                     fileHandle.seek(toFileOffset: offset)
                 } else {
@@ -52,21 +54,18 @@ class ReadFileManager {
         }
     }
 
-    private func readText(data: Data, fileHandle: FileHandle, totalReadCount: inout Int, readTextCallback: ((String) -> Void)? = nil) {
+    private func readTextByLine(data: Data, fileHandle: FileHandle, totalReadCount: inout Int, readTextCallback: ((String) -> Void)? = nil) {
         let newline = Data([0x0A]) // Line break symbol in ASCII
         var tmpData = data
-        let currentFileHandleOffset = totalReadCount
-        tmpData = tmpData.subdata(in: Data.Index(currentFileHandleOffset) ..< tmpData.indices.upperBound)
+        let startOffset = totalReadCount
+        tmpData = tmpData.subdata(in: Data.Index(startOffset) ..< tmpData.indices.upperBound)
         while true {
             if let range = tmpData.range(of: newline) {
                 let lineData = tmpData.prefix(upTo: range.lowerBound)
                 if let line = String(data: lineData, encoding: .utf8) {
                     if !line.isEmpty {
-                        print("test11 Line: \(line)")
                         totalReadCount += (lineData.count + 1)
                         readTextCallback?(line)
-                    } else {
-                        print("test11 Line is empty || lineData.count: \(lineData.count)")
                     }
                 } else {
                     break

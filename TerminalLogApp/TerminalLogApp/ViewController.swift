@@ -13,7 +13,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print("test11 do action")
-        testCase1()
+//        testCase1()
+//        testCase2()
         
     }
 
@@ -26,7 +27,7 @@ class ViewController: UIViewController {
         }
         if let filePath = testFilePath2 {
             ReadFileManager.shared.asyncReadFile(atPath: filePath.path, readTextCallback: { text in
-//                print("test11 text: \(text)")
+                print("test11 text: \(text)")
             })
         }
     }
@@ -61,7 +62,7 @@ class ViewController: UIViewController {
             Utilities.deleteTestFile(testFilePath: filePath)
             Utilities.startTest(testFilePath: filePath)
             ReadFileManager.shared.asyncReadFile(atPath: filePath.path, readTextCallback: { text in
-//                print("test11 text: \(text)")
+                print("test11 text: \(text)")
             })
             
             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
