@@ -33,7 +33,8 @@ final class TerminalLogAppTests: XCTestCase {
         }
     }
     
-    func testCase3() {
+    // This is the test for reading fixed-content file
+    func testCase1() {
         var testFileURL: URL? {
             guard let filePath = Bundle.main.path(forResource: "log", ofType: "txt") else {
                 return nil
