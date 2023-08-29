@@ -66,6 +66,8 @@ class ReadFileManager {
                     if !line.isEmpty {
                         totalReadCount += (lineData.count + 1)
                         readTextCallback?(line)
+                    } else {
+                        totalReadCount += 1
                     }
                 } else {
                     break
